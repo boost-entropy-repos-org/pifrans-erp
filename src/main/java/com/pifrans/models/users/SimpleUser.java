@@ -1,4 +1,4 @@
-package com.pifrans.models;
+package com.pifrans.models.users;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

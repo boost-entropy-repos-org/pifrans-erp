@@ -1,24 +1,38 @@
-package com.pifrans.models;
+package com.pifrans.models.users;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.pifrans.models.enums.Profile;
+import com.pifrans.models.places.Address;
 
 /* Anotação para mostrar para o JPA que esta é uma superclasse e não precisa criar tabela a partir dela e sim das classes filhas */
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public abstract class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -45,12 +59,14 @@ public abstract class User implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date lastAccess;
 
-	@Column(name = "is_active")
-	private boolean isActive;
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "user_profile")
+	private Set<Integer> profiles = new HashSet<>();
 
-	@ManyToOne
-	@JoinColumn(name = "fk_role")
-	private List<Role> roles;
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "user_address", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "address_id"))
+	private List<Address> addresses;
 
 	public Long getId() {
 		return id;
@@ -100,20 +116,20 @@ public abstract class User implements Serializable {
 		this.lastAccess = lastAccess;
 	}
 
-	public boolean isActive() {
-		return isActive;
+	public Set<Profile> getProfiles() {
+		return profiles.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
 	}
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+	public void addProfile(Profile profile) {
+		profiles.add(profile.getId());
 	}
 
-	public List<Role> getRoles() {
-		return roles;
+	public List<Address> getAddresses() {
+		return addresses;
 	}
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
 	}
 
 	@Override

@@ -1,15 +1,24 @@
-package com.pifrans.models;
+package com.pifrans.models.places;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.pifrans.models.users.User;
 
 @Entity
 @Table(name = "address")
 public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String cep;
 	private String street;
@@ -18,6 +27,9 @@ public class Address implements Serializable {
 	private String city;
 	private String state;
 	private String country;
+
+	@ManyToMany(mappedBy = "addresses")
+	private List<User> users;
 
 	public Long getId() {
 		return id;
@@ -81,6 +93,14 @@ public class Address implements Serializable {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 	@Override

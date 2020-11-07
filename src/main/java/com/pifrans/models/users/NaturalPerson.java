@@ -1,4 +1,4 @@
-package com.pifrans.models;
+package com.pifrans.models.users;
 
 import java.util.Date;
 
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "natural_person")
-public class NaturalPerson extends Person {
+public class NaturalPerson extends User {
 	private static final long serialVersionUID = 1L;
 
 	@NotEmpty(message = "Campo obrigatório!")

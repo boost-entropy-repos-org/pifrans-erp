@@ -1,4 +1,4 @@
-package com.pifrans.models;
+package com.pifrans.models.finances;
 
 import java.io.Serializable;
 
@@ -8,21 +8,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
-
-@Component
 @Entity
-@Table(name = "roles")
-public class Role implements Serializable {
+@Table(name = "category")
+public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String access;
 
-	public Role() {
-	}
+	private String account;
+	private String name;
 
 	public Long getId() {
 		return id;
@@ -32,12 +28,20 @@ public class Role implements Serializable {
 		this.id = id;
 	}
 
-	public String getAccess() {
-		return access;
+	public String getAccount() {
+		return account;
 	}
 
-	public void setAccess(String access) {
-		this.access = access;
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
@@ -56,7 +60,7 @@ public class Role implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Role other = (Role) obj;
+		Category other = (Category) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

@@ -1,4 +1,4 @@
-package com.pifrans.models;
+package com.pifrans.models.users;
 
 import java.util.Date;
 
@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "legal_entity")
-public class LegalEntity extends Person {
+public class LegalEntity extends User {
 	private static final long serialVersionUID = 1L;
 
 	private String officialName;
