@@ -1,6 +1,7 @@
 package com.pifrans.global.configurations;
 
 import java.util.Arrays;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +28,8 @@ import com.pifrans.global.securities.JWTSecurity;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	private static final Logger LOG = Logger.getLogger(SecurityConfig.class.getName());
+	
 	private static final String[] PUBLIC_MATCHERS = { "/h2-console/**" };
 	private static final String[] PUBLIC_MATCHERS_GET = { "/business/**", "/users/**" };
 	private static final String[] PUBLIC_MATCHERS_POST = { "/business", "/auth/forgot/**" };
@@ -42,10 +45,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		LOG.info("configure(HttpSecurity)");
 		if (Arrays.asList(environment.getActiveProfiles()).contains("test")) {
 			http.headers().frameOptions().disable();
 		}
-
 		http.cors().and().csrf().disable();
 		http.authorizeRequests().antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll().antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll().antMatchers(PUBLIC_MATCHERS).permitAll().anyRequest().authenticated();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtSecurity));
@@ -55,11 +58,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		LOG.info("configure(AuthenticationManagerBuilder)");
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
+		LOG.info("corsConfigurationSource()");
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 		return source;
@@ -67,6 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		LOG.info("bCryptPasswordEncoder()");
 		return new BCryptPasswordEncoder();
 	}
 }
