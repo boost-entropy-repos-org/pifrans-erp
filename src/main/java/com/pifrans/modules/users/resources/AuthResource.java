@@ -15,6 +15,8 @@ import com.pifrans.global.services.UserService;
 import com.pifrans.modules.users.dto.EmailDTO;
 import com.pifrans.modules.users.services.AuthService;
 
+import javassist.tools.rmi.ObjectNotFoundException;
+
 //@RestController
 //@RequestMapping(value = "/auth")
 public class AuthResource {
@@ -33,7 +35,12 @@ public class AuthResource {
 
 	@RequestMapping(value = "/forgot", method = RequestMethod.POST)
 	public ResponseEntity<Void> forgot(@Valid @RequestBody EmailDTO objDTO) {
-		authService.sendNewPassword(objDTO.getEmail());
+		try {
+			authService.sendNewPassword(objDTO.getEmail());
+		} catch (ObjectNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return ResponseEntity.noContent().build();
 	}
 }
