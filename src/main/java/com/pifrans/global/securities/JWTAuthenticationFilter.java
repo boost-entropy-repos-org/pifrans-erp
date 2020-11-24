@@ -36,6 +36,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+		LOG.info("attemptAuthentication()");
 		try {
 			Credential credenciaisDTO = new ObjectMapper().readValue(request.getInputStream(), Credential.class);
 			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(credenciaisDTO.getEmail(), credenciaisDTO.getPassword(), new ArrayList<>());
@@ -49,10 +50,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+		LOG.info("successfulAuthentication()");
 		String username = ((UserDetailSecurity) authResult.getPrincipal()).getUsername();
 		String token = jwtSecurity.generateToken(username);
 		response.addHeader("Authorization", "Bearer " + token);
-		LOG.info("Usuário " + username + " logado com sucesso!");
 	}
 	
 	@Override
