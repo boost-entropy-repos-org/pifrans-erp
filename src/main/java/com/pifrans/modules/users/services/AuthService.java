@@ -4,11 +4,11 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
 
-import com.pifrans.global.exceptions.errors.ObjectNotFoundException;
 import com.pifrans.global.models.User;
 import com.pifrans.global.repositories.UserRepository;
+
+import javassist.tools.rmi.ObjectNotFoundException;
 
 //@Service
 public class AuthService {
@@ -20,7 +20,7 @@ public class AuthService {
 	private EmailService emailService;
 	private Random random = new Random();
 
-	public void sendNewPassword(String email) {
+	public void sendNewPassword(String email) throws ObjectNotFoundException {
 		User user = userRepository.findByEmail(email);
 		if (user == null) {
 			throw new ObjectNotFoundException("E-mail não encontrado!");

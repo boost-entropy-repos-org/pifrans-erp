@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.pifrans.global.enums.Profile;
-import com.pifrans.global.repositories.UserRepository;
+import com.pifrans.global.services.UserService;
 import com.pifrans.modules.places.models.Address;
 import com.pifrans.modules.places.models.City;
 import com.pifrans.modules.places.models.Country;
@@ -24,7 +24,7 @@ import com.pifrans.modules.users.models.Person;
 @Configuration
 public class DBConfig {
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
 	@Autowired
 	private CountryRepository countryRepository;
@@ -43,17 +43,29 @@ public class DBConfig {
 
 	public void instantiateTestDatabase() throws ParseException {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		Person np1 = new Person(null, "Tibío", "pipiluco@gmail.com", encoder.encode("111"), null, null,
-				"Pipiluço", "Capetei", "Masculino", dateFormat.parse("25-05-2010"), "02283279038");
-		Person np2 = new Person(null, "Tuba", "tubaína@gmail.com", encoder.encode("111"), null, null,
-				"Tubaína", "Capetei", "Feminino", dateFormat.parse("15-12-2013"), "70506913058");
+		Person np1 = new Person(null, "Tibío", "pipiluco@gmail.com", encoder.encode("111"), null, null, "Pipiluço",
+				"Capetei", "Masculino", dateFormat.parse("25-05-2010"), "02283279038");
+		Person np2 = new Person(null, "Tuba", "tubaína@gmail.com", encoder.encode("111"), null, null, "Tubaína",
+				"Capetei", "Feminino", dateFormat.parse("15-12-2013"), "70506913058");
 		np2.addProfile(Profile.ADMIN);
 
-		Business le1 = new Business(null, null, "senai@sc.senai.br", encoder.encode("@dmBnu"), null, null,
+		Business le1 = new Business(null, null, "senai.indaial@sc.senai.br", encoder.encode("@dmBnu"), null, null,
 				"Serviço Nacional de Aprendizagem Industrial", "SENAI Indaial", "03774688003170",
 				dateFormat.parse("18-02-1935"));
-		Person np3 = new Person(null, null, "sakukay@gmail.com", encoder.encode("222"), null, null,
-				"Sakukay", "Doroki", "Masculino", dateFormat.parse("03-07-1980"), "49532382062");
+		Business le2 = new Business(null, null, "senai.pomerode@sc.senai.br", encoder.encode("@dmBnu"), null, null,
+				"Serviço Nacional de Aprendizagem Industrial", "SENAI Pomerode", "03774688002956",
+				dateFormat.parse("18-02-1935"));
+		Business le3 = new Business(null, null, "senai.timbo@sc.senai.br", encoder.encode("@dmBnu"), null, null,
+				"Serviço Nacional de Aprendizagem Industrial", "SENAI Timbó", "03774688002280",
+				dateFormat.parse("18-02-1935"));
+		Business le4 = new Business(null, null, "fm905@sesifarmacias.com.br", encoder.encode("@dmBnu"), null, null,
+				"Serviço Social da Indústria", "Farma SESI 905 Timbó", "03777341025231",
+				dateFormat.parse("18-02-1935"));
+		Business le5 = new Business(null, null, "fm564@sesifarmacias.com.br", encoder.encode("@dmBnu"), null, null,
+				"Serviço Social da Indústria", "Farma SESI 564 Indaial", "03777341006601",
+				dateFormat.parse("18-02-1935"));
+		Person np3 = new Person(null, null, "sakukay@gmail.com", encoder.encode("222"), null, null, "Sakukay", "Doroki",
+				"Masculino", dateFormat.parse("03-07-1980"), "49532382062");
 
 		Country co1 = new Country(null, "Brasil", "BR");
 		Country co2 = new Country(null, "Japão", "JP");
@@ -77,6 +89,6 @@ public class DBConfig {
 		np1.setAddresses(Arrays.asList(ad1, ad2));
 		np2.setAddresses(Arrays.asList(ad1));
 		np3.setAddresses(Arrays.asList(ad3));
-		userRepository.saveAll(Arrays.asList(np1, np2, le1, np3));
+		userService.saveAll(Arrays.asList(np1, np2, le1, le2, le3, le4, le5, np3));
 	}
 }
