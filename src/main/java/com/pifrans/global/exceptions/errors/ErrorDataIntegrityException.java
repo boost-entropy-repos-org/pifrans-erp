@@ -3,14 +3,14 @@ package com.pifrans.global.exceptions.errors;
 /*
  * Classe para tratar erros de integração de dados
  */
-public class DataIntegrityException extends RuntimeException {
+public class ErrorDataIntegrityException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
-	public DataIntegrityException(String message) {
+	public ErrorDataIntegrityException(String message) {
 		super(message);
 	}
 
-	public DataIntegrityException(String message, Throwable cause) {
+	public ErrorDataIntegrityException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

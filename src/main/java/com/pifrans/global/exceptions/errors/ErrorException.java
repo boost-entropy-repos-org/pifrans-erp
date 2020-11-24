@@ -3,14 +3,14 @@ package com.pifrans.global.exceptions.errors;
 /*
  * Classe para tratar erros de objetos nulos
  */
-public class ObjectNotFoundException extends RuntimeException {
+public class ErrorException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
-	public ObjectNotFoundException(String message) {
+	public ErrorException(String message) {
 		super(message);
 	}
 
-	public ObjectNotFoundException(String message, Throwable cause) {
+	public ErrorException(String message, Throwable cause) {
 		super(message, cause);
 	}
 }

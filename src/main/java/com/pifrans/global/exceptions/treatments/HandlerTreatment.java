@@ -1,7 +1,6 @@
 package com.pifrans.global.exceptions.treatments;
 
 import java.io.Serializable;
-import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,9 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import com.pifrans.global.exceptions.errors.DataIntegrityException;
-import com.pifrans.global.exceptions.errors.ObjectNotFoundException;
+import com.pifrans.global.exceptions.errors.ErrorDataIntegrityException;
+import com.pifrans.global.exceptions.errors.ErrorException;
+import com.pifrans.global.exceptions.errors.ErrorNoSuchElementException;
+
+import javassist.tools.rmi.ObjectNotFoundException;
 
 /*
  * Classe para tratar erros gerenciados por classes do pacote exceptions.errors
@@ -30,23 +33,39 @@ public class HandlerTreatment implements Serializable {
 				System.currentTimeMillis(), ObjectNotFoundException.class.getName());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
-
-	@ExceptionHandler(NoSuchElementException.class)
-	public ResponseEntity<StandardTreatment> noSuchElement(NoSuchElementException exception,
+	
+	@ExceptionHandler(ErrorException.class)
+	public ResponseEntity<StandardTreatment> ErrorException(Exception exception,
 			HttpServletRequest request) {
 		StandardTreatment error = new StandardTreatment(HttpStatus.NOT_FOUND.value(), exception.getMessage(),
-				System.currentTimeMillis(), NoSuchElementException.class.getName());
+				System.currentTimeMillis(), ErrorException.class.getName());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+	}
+
+	@ExceptionHandler(ErrorNoSuchElementException.class)
+	public ResponseEntity<StandardTreatment> noSuchElement(ErrorNoSuchElementException exception,
+			HttpServletRequest request) {
+		StandardTreatment error = new StandardTreatment(HttpStatus.NOT_FOUND.value(), exception.getMessage(),
+				System.currentTimeMillis(), ErrorNoSuchElementException.class.getName());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
 
 	/**
-	 * Classe para tratar erros de {@link DataIntegrityException}
+	 * Classe para tratar erros de {@link ErrorDataIntegrityException}
 	 */
-	@ExceptionHandler(DataIntegrityException.class)
-	public ResponseEntity<StandardTreatment> dataIntegrity(DataIntegrityException exception,
+	@ExceptionHandler(ErrorDataIntegrityException.class)
+	public ResponseEntity<StandardTreatment> dataIntegrity(ErrorDataIntegrityException exception,
 			HttpServletRequest request) {
 		StandardTreatment error = new StandardTreatment(HttpStatus.BAD_REQUEST.value(), exception.getMessage(),
-				System.currentTimeMillis(), DataIntegrityException.class.getName());
+				System.currentTimeMillis(), ErrorDataIntegrityException.class.getName());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
+
+	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
+	protected ResponseEntity<StandardTreatment> methodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex,
+			HttpServletRequest request) {
+		StandardTreatment error = new StandardTreatment(HttpStatus.NOT_FOUND.value(),
+				"Path inválido: " + request.getServletPath(), System.currentTimeMillis(), ex.getClass().getName());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
 }
