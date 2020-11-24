@@ -2,6 +2,7 @@ package com.pifrans.modules.users.models;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -28,6 +29,7 @@ public class Person extends User {
 
 	@CPF(message = "CPF inválido!")
 	@NotEmpty(message = "Campo obrigatório!")
+	@Column(unique = true)
 	private String cpf;
 
 	public Person() {

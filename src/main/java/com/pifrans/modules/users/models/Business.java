@@ -2,6 +2,7 @@ package com.pifrans.modules.users.models;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -22,6 +23,7 @@ public class Business extends User {
 
 	@CNPJ(message = "CNPJ inválido!")
 	@NotEmpty(message = "Campo obrigatório!")
+	@Column(unique = true)
 	private String cnpj;
 
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
