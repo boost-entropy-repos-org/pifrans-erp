@@ -35,10 +35,18 @@ public class HandlerTreatment implements Serializable {
 	}
 	
 	@ExceptionHandler(ErrorException.class)
-	public ResponseEntity<StandardTreatment> ErrorException(Exception exception,
+	public ResponseEntity<StandardTreatment> standard(ErrorException exception,
 			HttpServletRequest request) {
 		StandardTreatment error = new StandardTreatment(HttpStatus.NOT_FOUND.value(), exception.getMessage(),
 				System.currentTimeMillis(), ErrorException.class.getName());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+	}
+	
+	@ExceptionHandler(NullPointerException.class)
+	public ResponseEntity<StandardTreatment> nullPointer(NullPointerException exception,
+			HttpServletRequest request) {
+		StandardTreatment error = new StandardTreatment(HttpStatus.NOT_FOUND.value(), exception.getMessage(),
+				System.currentTimeMillis(), NullPointerException.class.getName());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
 

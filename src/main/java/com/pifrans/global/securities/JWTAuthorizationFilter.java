@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import com.pifrans.global.exceptions.errors.ErrorException;
+
 /**
  * Classe responsável pela autorização do usuário
  * @author Lucas F. da Silva
@@ -46,6 +48,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		chain.doFilter(request, response);
 		} catch (Exception e) {
 			LOG.severe(e.getMessage());
+			throw new ErrorException(e.getMessage());
 		}
 	}
 
