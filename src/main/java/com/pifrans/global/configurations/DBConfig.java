@@ -10,16 +10,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.pifrans.global.enums.Profile;
 import com.pifrans.global.services.UserService;
-import com.pifrans.modules.places.models.Address;
-import com.pifrans.modules.places.models.City;
-import com.pifrans.modules.places.models.Country;
-import com.pifrans.modules.places.models.State;
-import com.pifrans.modules.places.repositories.AddressRepository;
-import com.pifrans.modules.places.repositories.CityRepository;
-import com.pifrans.modules.places.repositories.CountryRepository;
-import com.pifrans.modules.places.repositories.StateRepository;
-import com.pifrans.modules.users.models.Business;
-import com.pifrans.modules.users.models.Person;
+import com.pifrans.modules.place.models.Address;
+import com.pifrans.modules.place.models.City;
+import com.pifrans.modules.place.models.Country;
+import com.pifrans.modules.place.models.State;
+import com.pifrans.modules.place.repositories.AddressRepository;
+import com.pifrans.modules.place.repositories.CityRepository;
+import com.pifrans.modules.place.repositories.CountryRepository;
+import com.pifrans.modules.place.repositories.StateRepository;
+import com.pifrans.modules.user.models.Business;
+import com.pifrans.modules.user.models.Person;
 
 @Configuration
 public class DBConfig {

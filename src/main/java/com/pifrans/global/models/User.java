@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.pifrans.global.enums.Profile;
-import com.pifrans.modules.places.models.Address;
+import com.pifrans.modules.place.models.Address;
 
 /* Anotação para mostrar para o JPA que esta é uma superclasse e não precisa criar tabela a partir dela e sim das classes filhas */
 @Entity
