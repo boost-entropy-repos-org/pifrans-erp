@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "state")
+@Table(name = "plc_state")
 public class State extends Place {
 	private static final long serialVersionUID = 1L;
 

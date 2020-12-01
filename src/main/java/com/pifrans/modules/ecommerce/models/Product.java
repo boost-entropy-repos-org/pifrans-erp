@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "product")
+@Table(name = "ecm_product")
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -30,7 +30,7 @@ public class Product implements Serializable {
 
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+	@JoinTable(name = "ecm_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private List<Category> categories = new ArrayList<>();
 
 	public Long getId() {

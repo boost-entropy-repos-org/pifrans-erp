@@ -11,8 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-@Entity(name = "eco_category")
-@Table(name = "eco_category")
+@Entity(name = "ecm_category")
+@Table(name = "ecm_category")
 public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -82,5 +82,4 @@ public class Category implements Serializable {
 			return false;
 		return true;
 	}
-
 }

@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "payment_card")
+@Table(name = "ecm_payment_card")
 public class PaymentCard extends Payment {
 	private static final long serialVersionUID = 1L;
 

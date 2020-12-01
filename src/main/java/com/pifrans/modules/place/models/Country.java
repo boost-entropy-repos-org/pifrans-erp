@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "country")
+@Table(name = "plc_country")
 public class Country extends Place {
 	private static final long serialVersionUID = 1L;
 

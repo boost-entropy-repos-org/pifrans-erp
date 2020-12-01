@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "currency")
+@Table(name = "fin_currency")
 public class Currency implements Serializable {
 	private static final long serialVersionUID = 1L;
 

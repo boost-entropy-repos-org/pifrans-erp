@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pifrans.global.models.User;
 
 @Entity
-@Table(name = "business")
+@Table(name = "usr_business")
 public class Business extends User {
 	private static final long serialVersionUID = 1L;
 

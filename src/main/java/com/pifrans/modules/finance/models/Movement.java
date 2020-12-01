@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "movement")
+@Table(name = "fin_movement")
 public class Movement implements Serializable {
 	private static final long serialVersionUID = 1L;
 

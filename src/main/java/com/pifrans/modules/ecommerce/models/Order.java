@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pifrans.global.models.User;
 
 @Entity
-@Table(name = "order")
+@Table(name = "ecm_order")
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 

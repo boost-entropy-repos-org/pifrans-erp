@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name = "payment_slip")
+@Table(name = "ecm_payment_slip")
 public class PaymentSlip extends Payment {
 	private static final long serialVersionUID = 1L;
 

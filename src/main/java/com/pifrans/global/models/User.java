@@ -20,6 +20,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
@@ -31,6 +32,7 @@ import com.pifrans.modules.place.models.Address;
 
 /* Anotação para mostrar para o JPA que esta é uma superclasse e não precisa criar tabela a partir dela e sim das classes filhas */
 @Entity
+@Table(name = "glb_user")
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public abstract class User implements Serializable {
@@ -60,16 +62,16 @@ public abstract class User implements Serializable {
 	private Date lastAccess;
 
 	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "user_profile")
+	@CollectionTable(name = "glb_user_profile")
 	private Set<Integer> profiles = new HashSet<>();
 
 	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "user_phone")
+	@CollectionTable(name = "glb_user_phone")
 	private Set<String> phones = new HashSet<>();
 
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "user_address", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "address_id"))
+	@JoinTable(name = "glb_user_address", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "address_id"))
 	private List<Address> addresses;
 
 	public User() {
