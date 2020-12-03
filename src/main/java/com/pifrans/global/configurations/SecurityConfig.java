@@ -29,10 +29,10 @@ import com.pifrans.global.securities.JWTSecurity;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final Logger LOG = Logger.getLogger(SecurityConfig.class.getName());
-	
+
 	private static final String[] PUBLIC_MATCHERS = { "/h2-console/**" };
-	private static final String[] PUBLIC_MATCHERS_GET = { "/business/**", "/users/**" };
-	private static final String[] PUBLIC_MATCHERS_POST = { "/business", "/auth/forgot/**" };
+	private static final String[] PUBLIC_MATCHERS_GET = { "/business/**" };
+	private static final String[] PUBLIC_MATCHERS_POST = { "/users/**", "/business", "/auth/forgot/**" };
 
 	@Autowired
 	private Environment environment;
@@ -50,7 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			http.headers().frameOptions().disable();
 		}
 		http.cors().and().csrf().disable();
-		http.authorizeRequests().antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll().antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll().antMatchers(PUBLIC_MATCHERS).permitAll().anyRequest().authenticated();
+		http.authorizeRequests().antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
+				.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll().antMatchers(PUBLIC_MATCHERS).permitAll()
+				.anyRequest().authenticated();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtSecurity));
 		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtSecurity, userDetailsService));
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

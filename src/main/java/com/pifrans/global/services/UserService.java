@@ -3,9 +3,11 @@ package com.pifrans.global.services;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.pifrans.global.enums.Profile;
 import com.pifrans.global.models.User;
 import com.pifrans.global.repositories.UserRepository;
 import com.pifrans.global.securities.UserDetailSecurity;
@@ -26,6 +28,15 @@ public class UserService extends GenericService<User> {
 			LOG.severe(e.getMessage());
 			return null;
 		}
+	}
+
+	@Override
+	public User find(Long id) throws Exception {
+		UserDetailSecurity user = authenticated();
+		if (user == null || !user.hasRole(Profile.ADMIN) && !id.equals(user.getId())) {
+			throw new AccessDeniedException("Acesso negado!");
+		}
+		return super.find(id);
 	}
 
 	public User findByEmail(String email) throws Exception {

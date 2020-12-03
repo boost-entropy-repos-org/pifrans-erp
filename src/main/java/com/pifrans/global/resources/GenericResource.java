@@ -33,7 +33,7 @@ public abstract class GenericResource<T> {
 	private GenericService<T> service;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<T> find(@PathVariable Long id) {
+	public ResponseEntity<T> find(@PathVariable Long id) throws Exception {
 		LOG.info("find");
 		T object = null;
 		try {
@@ -42,10 +42,7 @@ public abstract class GenericResource<T> {
 		} catch (NoSuchElementException e) {
 			throw new ErrorNoSuchElementException(
 					("Objeto não encontrado! ID: " + id + ", Tipo: " + object.getClass().getName()).toString());
-		} catch (Exception e) {
-			LOG.severe(e.getMessage());
-			throw new ErrorException(e.getMessage());
-		}
+		} 
 	}
 
 	@RequestMapping(method = RequestMethod.POST)

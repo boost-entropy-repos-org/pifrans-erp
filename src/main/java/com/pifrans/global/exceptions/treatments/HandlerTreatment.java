@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -33,20 +34,18 @@ public class HandlerTreatment implements Serializable {
 				System.currentTimeMillis(), ObjectNotFoundException.class.getName());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
-	
+
 	@ExceptionHandler(ErrorException.class)
-	public ResponseEntity<StandardTreatment> standard(ErrorException exception,
-			HttpServletRequest request) {
-		StandardTreatment error = new StandardTreatment(HttpStatus.NOT_FOUND.value(), exception.getMessage(),
-				System.currentTimeMillis(), ErrorException.class.getName());
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+	public ResponseEntity<StandardTreatment> standard(ErrorException exception, HttpServletRequest request) {
+		StandardTreatment error = new StandardTreatment(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+				exception.getMessage(), System.currentTimeMillis(), ErrorException.class.getName());
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
 	}
-	
+
 	@ExceptionHandler(NullPointerException.class)
-	public ResponseEntity<StandardTreatment> nullPointer(NullPointerException exception,
-			HttpServletRequest request) {
-		StandardTreatment error = new StandardTreatment(HttpStatus.NOT_FOUND.value(), exception.getMessage(),
-				System.currentTimeMillis(), NullPointerException.class.getName());
+	public ResponseEntity<StandardTreatment> nullPointer(NullPointerException e, HttpServletRequest request) {
+		StandardTreatment error = new StandardTreatment(HttpStatus.NOT_FOUND.value(),
+				"Não existe: " + request.getRequestURL(), System.currentTimeMillis(), e.getClass().getName());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
 
@@ -73,7 +72,15 @@ public class HandlerTreatment implements Serializable {
 	protected ResponseEntity<StandardTreatment> methodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex,
 			HttpServletRequest request) {
 		StandardTreatment error = new StandardTreatment(HttpStatus.NOT_FOUND.value(),
-				"Path inválido: " + request.getServletPath(), System.currentTimeMillis(), ex.getClass().getName());
+				"Path inválido: " + request.getRequestURL(), System.currentTimeMillis(), ex.getClass().getName());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+	}
+
+	@ExceptionHandler(AccessDeniedException.class)
+	protected ResponseEntity<StandardTreatment> accessDenied(AccessDeniedException ex, HttpServletRequest request) {
+		StandardTreatment error = new StandardTreatment(HttpStatus.FORBIDDEN.value(),
+				"Acesso negado: " + request.getMethod() + " - " + request.getRequestURL(), System.currentTimeMillis(),
+				ex.getClass().getName());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
 	}
 }
