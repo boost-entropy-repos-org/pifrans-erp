@@ -7,7 +7,7 @@ import com.pifrans.global.resources.GenericResource;
 import com.pifrans.modules.ecommerce.models.PaymentCard;
 
 @RestController
-@RequestMapping(value = "/payments/cards")
+@RequestMapping(value = "/ecommerce/cards")
 public class PaymentCardResource extends GenericResource<PaymentCard> {
 	// private static final Logger LOG =
 	// Logger.getLogger(CityResource.class.getName());

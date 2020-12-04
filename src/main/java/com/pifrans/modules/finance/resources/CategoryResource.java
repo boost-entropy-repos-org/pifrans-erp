@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pifrans.global.resources.GenericResource;
 import com.pifrans.modules.finance.models.Category;
 
-@RestController
-@RequestMapping(value = "/categories")
+@RestController("finCategoryResource")
+@RequestMapping(value = "/finance/categories")
 public class CategoryResource extends GenericResource<Category> {
 	// private static final Logger LOG =
 	// Logger.getLogger(CityResource.class.getName());

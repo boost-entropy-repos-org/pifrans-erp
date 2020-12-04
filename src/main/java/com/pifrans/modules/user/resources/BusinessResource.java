@@ -26,7 +26,7 @@ import com.pifrans.modules.user.models.Business;
 import com.pifrans.modules.user.services.BusinessService;
 
 @RestController
-@RequestMapping(value = "/business")
+@RequestMapping(value = "/user/business")
 public class BusinessResource {
 	private static final Logger LOG = Logger.getLogger(BusinessResource.class.getName());
 

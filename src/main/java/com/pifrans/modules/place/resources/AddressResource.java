@@ -7,7 +7,7 @@ import com.pifrans.global.resources.GenericResource;
 import com.pifrans.modules.place.models.Address;
 
 @RestController
-@RequestMapping(value = "/addresses")
+@RequestMapping(value = "/place/addresses")
 public class AddressResource extends GenericResource<Address> {
 	//private static final Logger LOG = Logger.getLogger(CityResource.class.getName());
 

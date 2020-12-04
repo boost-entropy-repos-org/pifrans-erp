@@ -18,7 +18,7 @@ import com.pifrans.modules.user.services.AuthService;
 import javassist.tools.rmi.ObjectNotFoundException;
 
 //@RestController
-//@RequestMapping(value = "/auth")
+//@RequestMapping(value = "/user/auth")
 public class AuthResource {
 	@Autowired
 	private JWTSecurity jwtSecurity;

@@ -7,7 +7,7 @@ import com.pifrans.global.resources.GenericResource;
 import com.pifrans.modules.finance.models.Movement;
 
 @RestController
-@RequestMapping(value = "/movements")
+@RequestMapping(value = "/finance/movements")
 public class MovementResource extends GenericResource<Movement> {
 	//private static final Logger LOG = Logger.getLogger(CityResource.class.getName());
 

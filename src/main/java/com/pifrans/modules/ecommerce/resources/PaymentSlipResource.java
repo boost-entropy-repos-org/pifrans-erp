@@ -7,7 +7,7 @@ import com.pifrans.global.resources.GenericResource;
 import com.pifrans.modules.ecommerce.models.PaymentSlip;
 
 @RestController
-@RequestMapping(value = "/payments/slips")
+@RequestMapping(value = "/ecommerce/slips")
 public class PaymentSlipResource extends GenericResource<PaymentSlip> {
 	// private static final Logger LOG =
 	// Logger.getLogger(CityResource.class.getName());

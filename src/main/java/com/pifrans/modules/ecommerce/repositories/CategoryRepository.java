@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pifrans.modules.ecommerce.models.Category;
 
-@Repository
+@Repository("ecmCategoryRepository")
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
 }

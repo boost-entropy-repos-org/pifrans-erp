@@ -7,7 +7,7 @@ import com.pifrans.global.resources.GenericResource;
 import com.pifrans.modules.place.models.State;
 
 @RestController
-@RequestMapping(value = "/states")
+@RequestMapping(value = "/place/states")
 public class StateResource extends GenericResource<State> {
 	//private static final Logger LOG = Logger.getLogger(CityResource.class.getName());
 

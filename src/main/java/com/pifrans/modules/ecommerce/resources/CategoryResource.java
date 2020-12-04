@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pifrans.global.resources.GenericResource;
 import com.pifrans.modules.ecommerce.models.Category;
 
-@RestController
-@RequestMapping(value = "/categories")
+@RestController("ecmCategoryResource")
+@RequestMapping(value = "/ecommerce/categories")
 public class CategoryResource extends GenericResource<Category> {
 	// private static final Logger LOG =
 	// Logger.getLogger(CityResource.class.getName());

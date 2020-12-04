@@ -7,7 +7,7 @@ import com.pifrans.global.resources.GenericResource;
 import com.pifrans.modules.ecommerce.models.Cart;
 
 @RestController
-@RequestMapping(value = "/carts")
+@RequestMapping(value = "/ecommerce/carts")
 public class CartResource extends GenericResource<Cart> {
 	// private static final Logger LOG =
 	// Logger.getLogger(CityResource.class.getName());

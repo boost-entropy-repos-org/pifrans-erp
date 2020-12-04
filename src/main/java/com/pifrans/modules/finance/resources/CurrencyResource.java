@@ -7,7 +7,7 @@ import com.pifrans.global.resources.GenericResource;
 import com.pifrans.modules.finance.models.Currency;
 
 @RestController
-@RequestMapping(value = "/currencies")
+@RequestMapping(value = "/finance/currencies")
 public class CurrencyResource extends GenericResource<Currency> {
 	//private static final Logger LOG = Logger.getLogger(CityResource.class.getName());
 

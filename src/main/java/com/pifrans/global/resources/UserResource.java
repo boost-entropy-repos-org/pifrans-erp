@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pifrans.global.models.User;
 
 @RestController
-@RequestMapping(value = "/users")
+@RequestMapping(value = "/global/users")
 public class UserResource extends GenericResource<User> {
 	// private static final Logger LOG =
 	// Logger.getLogger(UserResource.class.getName());

@@ -7,7 +7,7 @@ import com.pifrans.global.resources.GenericResource;
 import com.pifrans.modules.ecommerce.models.Order;
 
 @RestController
-@RequestMapping(value = "/orders")
+@RequestMapping(value = "/ecommerce/orders")
 public class OrderResource extends GenericResource<Order> {
 	// private static final Logger LOG =
 	// Logger.getLogger(CityResource.class.getName());

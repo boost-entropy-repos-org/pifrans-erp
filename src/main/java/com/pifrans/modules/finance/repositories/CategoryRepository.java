@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pifrans.modules.finance.models.Category;
 
-@Repository
+@Repository("finCategoryRepository")
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
 }

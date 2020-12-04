@@ -26,7 +26,7 @@ import com.pifrans.modules.user.models.Person;
 import com.pifrans.modules.user.services.PersonService;
 
 @RestController
-@RequestMapping(value = "/people")
+@RequestMapping(value = "/user/people")
 public class PersonResource {
 	private static final Logger LOG = Logger.getLogger(PersonResource.class.getName());
 
