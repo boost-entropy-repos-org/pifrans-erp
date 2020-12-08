@@ -1,6 +1,7 @@
 package com.pifrans.global.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -20,6 +21,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -28,6 +30,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.pifrans.global.enums.Profile;
+import com.pifrans.modules.ecommerce.models.Order;
 import com.pifrans.modules.place.models.Address;
 
 /* Anotação para mostrar para o JPA que esta é uma superclasse e não precisa criar tabela a partir dela e sim das classes filhas */
@@ -73,6 +76,10 @@ public abstract class User implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "glb_user_address", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "address_id"))
 	private List<Address> addresses;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "user")
+	private List<Order> orders = new ArrayList<>();
 
 	public User() {
 		addProfile(Profile.USER);
@@ -167,6 +174,14 @@ public abstract class User implements Serializable {
 
 	public void addAddress(Address address) {
 		addresses.add(address);
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	@Override

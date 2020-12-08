@@ -3,6 +3,7 @@ package com.pifrans.global.configurations;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.pifrans.global.enums.Profile;
 import com.pifrans.global.services.UserService;
+import com.pifrans.modules.ecommerce.models.Order;
+import com.pifrans.modules.ecommerce.repositories.OrderRepository;
 import com.pifrans.modules.place.models.Address;
 import com.pifrans.modules.place.models.City;
 import com.pifrans.modules.place.models.Country;
@@ -37,6 +40,9 @@ public class DBConfig {
 
 	@Autowired
 	private AddressRepository addressRepository;
+
+	@Autowired
+	private OrderRepository orderRepository;
 
 	@Autowired
 	private BCryptPasswordEncoder encoder;
@@ -90,5 +96,11 @@ public class DBConfig {
 		np2.setAddresses(Arrays.asList(ad1));
 		np3.setAddresses(Arrays.asList(ad3));
 		userService.saveAll(Arrays.asList(np1, np2, le1, le2, le3, le4, le5, np3));
+		
+		Order or1 = new Order(null, new Date(System.currentTimeMillis()), np2);
+		Order or2 = new Order(null, new Date(System.currentTimeMillis()), le3);
+		Order or3 = new Order(null, new Date(System.currentTimeMillis()), np2);
+		Order or4 = new Order(null, new Date(System.currentTimeMillis()), np1);
+		orderRepository.saveAll(Arrays.asList(or1, or2, or3, or4));
 	}
 }
